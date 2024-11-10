@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
@@ -9,17 +11,19 @@ public class Player : MonoBehaviour
     // its name: speed, playerSpeed --- Speed, PlayerSpeed
     // optional: give it an initial value
     private float speed;
-    private int lives = 3;
-    private int score = 0;
+    public int lives = 3;
     private float horizontalInput;
     private float verticalInput;
+    private float horizontalScreenSize = 11.5f;
+    private float verticalScreenSize = 7.5f;
 
     public GameObject bullet;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        speed = 5f;
+        speed = 6f;
     }
 
     // Update is called once per frame
@@ -38,14 +42,14 @@ public class Player : MonoBehaviour
         // if (condition) { //do this }
         // else if (other condition { //do that }
         // else { //do this final }
-        if (transform.position.x > 11.5f || transform.position.x <= -11.5f)
+        if (transform.position.x > horizontalScreenSize || transform.position.x <= -horizontalScreenSize)
         {
             transform.position = new Vector3(transform.position.x * -1, transform.position.y, 0);
         }
 
-        if (transform.position.y > 0f || transform.position.y <= -5.5f)
+        if (transform.position.y >= verticalScreenSize || transform.position.y <= -verticalScreenSize)
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y * 0, 0);
+            transform.position = new Vector3(transform.position.x, transform.position.y * -1, 0);
         }
     }
 
@@ -59,5 +63,19 @@ public class Player : MonoBehaviour
             Instantiate(bullet, transform.position + new Vector3(0, 1, 0), Quaternion.identity);
         }
     }
+    public void Lives(int newLives)
+    {
+        //lives -= 1;
+        //lives = lives -1;
+        lives--;
+
+        if (lives == 0)
+        {
+            Destroy(this.gameObject);
+        }
+
+    }
+
+
 
 }
