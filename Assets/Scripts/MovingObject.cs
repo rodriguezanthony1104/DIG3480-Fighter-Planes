@@ -6,11 +6,12 @@ public class MovingObject : MonoBehaviour
 {
 
     public int whatAmI;
+    private GameManager gameManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -31,8 +32,14 @@ public class MovingObject : MonoBehaviour
         //calling the clouds
         else if (whatAmI == 3)
         {
-            transform.Translate(new Vector3(0, -1, 0) * Time.deltaTime * Random.Range(3f, 10f));
+            transform.Translate(new Vector3(0, -1, 0) * Time.deltaTime * Random.Range(3f, 10f) * gameManager.cloudSpeed);
         } 
+
+        //calling the powerups
+        else if (whatAmI == 4)
+        {
+            transform.Translate(new Vector3(0, -1, 0) * Time.deltaTime * 8f);
+        }
 
         if ((transform.position.y > 9f || transform.position.y <= -9f) && whatAmI != 3)
         {
